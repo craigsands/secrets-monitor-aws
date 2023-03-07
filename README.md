@@ -32,6 +32,7 @@ _Note: Only the secret and it's Lambda function (and IAM role) are managed at th
             ...
     ...
     ```
+1. Ideally, email addresses of stakeholders should be determined by tagging each secret with `aws:ResourceTag/owner=<email>`.
 
 ## Usage
 
@@ -59,4 +60,4 @@ _Note: Only the secret and it's Lambda function (and IAM role) are managed at th
 
 1. This repository is based on AWS' user guide for secret rotation: https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html#rotate-secrets_how
 1. Although I tend to trust AWS-recommended methods, new secrets are generated using the [secrets](https://docs.python.org/3/library/secrets.html) module of the python standard library since documentation was sparse on [secretsmanager.get_random_password()](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager/client/get_random_password.html)'s cryptographic security.
-1. Since the AWS-provided rotation code requires `secretsmanager:GetSecretValue` in the Lambda function's execution role policy, the tag condition `aws:ResourceTag/AllowMonitor=true]` was used to prevent access to secrets that are not intended to be rotated automatically.
+1. Since the AWS-provided rotation code requires `secretsmanager:GetSecretValue` in the Lambda function's execution role policy, the tag condition `aws:ResourceTag/AllowMonitor=true` was used to prevent access to secrets that are not intended to be rotated automatically.
